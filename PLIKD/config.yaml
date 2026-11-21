@@ -1,0 +1,61 @@
+protocol:
+  mode: base_new
+  shots: 16
+  seed: 1
+  seeds: [1, 2, 3]
+clip:
+  backbone: ViT-B/16
+  device: auto
+  download_root: null
+teacher:
+  model: gpt-4o
+  revision: null
+  api_key_env: OPENAI_API_KEY
+  base_url_env: OPENAI_BASE_URL
+  cache: cache/teacher.sqlite3
+  retries: 5
+  max_image_size: 1536
+  max_tokens: 4096
+knowledge:
+  dimensions: [visual, functional, contextual]
+  content_tokens: 64
+  batch_size: 128
+model:
+  visual_prompt_length: 16
+  context_tokens: 16
+  projector_hidden: 512
+  text_support: token
+  text_prompts: 4
+  class_chunk_size: 16
+  activation_checkpointing: true
+  classname_period: true
+loss:
+  temperature: 0.07
+  knowledge_weight: 0.7
+  visual_weight: 0.3
+  classification_weight: 0.8
+  classification: ce
+transport:
+  solver: sparse
+  epsilon: 1.0
+  max_iter: 100
+  tol: 0.000001
+  strict: false
+  regularized: true
+training:
+  epochs: auto
+  batch_size: auto
+  learning_rate: 0.002
+  momentum: 0.9
+  weight_decay: 0.0005
+  warmup_epochs: 1
+  warmup_lr: 0.00001
+  precision: float32
+  selection: last
+  save_every: 1
+  workers: 4
+  measure_time: false
+evaluation:
+  batch_size: 8
+  workers: 4
+variant: full
